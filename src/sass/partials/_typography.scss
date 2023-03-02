@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700;900&display=swap');
+
+h1 {
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: 900;
+    font-size: 3.25rem;
+    line-height: 1.2;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 0;
+    letter-spacing: 2.65rem;
+    margin-right: -2.65rem;
+}
+
+// h2 {
+//     font-family: $font-family;
+//     font-weight: 700;
+//     font-size: 2.5rem;
+//     line-height: 1.2;
+//     color: $color-light;
+//     text-transform: uppercase;
+//     text-align: center;
+// }
+
+h3 {
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1.2;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: right;
+    letter-spacing: 10px;
+    margin-right: -10px;
+}
+
+@media screen and (max-width: 768px) {
+    h1 {
+        font-size: 2.25rem;
+        letter-spacing: 1.25rem;
+        margin-right: -1.25rem;
+    }
+    h2 {
+        font-size: 1.5rem;
+    }
+    h3 {
+        font-size: 1rem;
+        letter-spacing: 5px;
+        margin-right: -5px;
+    }
+}
+
+@media screen and (max-width: 470px) {
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 0;
+        letter-spacing: 1rem;
+        margin-right: -1rem;
+    }
+    h3 {
+        font-size: 1rem;
+        line-height: 0;
+        letter-spacing: 4px;
+        margin-right: -4px;
+    }
+}

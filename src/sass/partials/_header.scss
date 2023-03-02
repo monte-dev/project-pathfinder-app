@@ -1,0 +1,19 @@
+header {
+  height: 1088px;
+  background-image: url('../../images/background.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.hero {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -250px;
+
+    &__content {
+        text-align: center;
+        color: $color-light;
+    }
+}
