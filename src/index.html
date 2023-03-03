@@ -14,8 +14,8 @@
     <header>
         <nav>
             <ul class="container">
-                <li>About</li>
-                <li>Finder</li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#finder">Finder</a></li>
             </ul>
         </nav>
         <section class="hero">
@@ -27,22 +27,33 @@
             </div>
         </section>
     </header>
-    <main>
-        <section class="about">
+    <main id="pages">
+        <section id="about" class="active">
             <div class="container">
+                <div class="about__box" data-aos="fade-up">
+                    <img src="./images/1.jpg" alt="travellers on a desert road">
+                </div>
+                <div class="about__box" data-aos="fade-up">
+                    <img src="./images/2.jpg" alt="road intersection">
+                </div>
             </div>
         </section>
-        <section class="finder">
+        <section id="finder">
             <div class="container">
+                <div data-aos="fade-up"></div>
             </div>
         </section>
     </main>
     <footer>
         <div class="container">
+            <p class="footer__text">All rights reserved</p>
         </div>
     </footer>
     <!-- Animate on scroll JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
     <script src="js/script.js"></script>
 </body>
 </html>

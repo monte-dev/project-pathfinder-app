@@ -6,3 +6,17 @@ $color-accent: #2ECC71;
 $color-warning: #E74C3C;
 $color-dark: #131313;
 $color-light: #fff;
+
+// -------- Mixins
+@mixin flex($direction, $justify, $align) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+@mixin center(){
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -1,5 +1,21 @@
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+#pages {
+  background-color: $color-dark;
+  min-height: 600px;
+  margin-top: -200px;
+
+  > * {
+    display: none;
+  }
+
+  > .active {
+    display: block;
+  }
+
+  
 }
