@@ -6,8 +6,8 @@
 
 #pages {
   background-color: $color-dark;
-  min-height: 600px;
-  margin-top: -200px;
+  min-height: fit-content;
+  margin-top: -300px;
 
   > * {
     display: none;

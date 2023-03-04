@@ -1,9 +1,9 @@
-@import 'partials/variables';
-@import 'partials/normalize';
-@import 'partials/typography';
-@import 'partials/global';
+@import 'variables';
+@import 'normalize';
+@import 'typography';
+@import 'global';
 
-@import 'partials/header';
-@import 'partials/about';
-@import 'partials/finder';
-@import 'partials/footer';
+@import 'components/header';
+@import 'components/about';
+@import 'components/finder';
+@import 'components/footer';
