@@ -1,99 +1,99 @@
 .about {
-    padding: 2rem 1rem;
+  padding: 2rem 1rem;
 
-    &__box:nth-of-type(odd) {
-        text-align: left;
-        margin: 2rem auto;
-        position: relative;
+  &__box:nth-of-type(odd) {
+    text-align: left;
+    margin: 2rem auto;
+    position: relative;
 
-        h2 {
-            text-align: left;
-            margin: 0;
-        }
-
-        img {
-            width: 45%;
-            @include box-shadow();
-        }
-
-        .about__text {
-            position: absolute;
-            top: 75%;
-            left: 45%;
-            transform: translate(-50%, -50%);
-        }
+    h2 {
+      text-align: left;
+      margin: 0;
     }
 
-    &__box:nth-of-type(even) {
-        text-align: right;
-        margin: 2rem auto;
-        position: relative;
+    img {
+      width: 45%;
+      @include box-shadow();
+    }
 
-        h2 {
-            text-align: left;
-            margin: 0;
-        }
+    .about__text {
+      position: absolute;
+      top: 75%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+    }
+  }
 
-        p {
-            text-align: left;
-        }
+  &__box:nth-of-type(even) {
+    text-align: right;
+    margin: 2rem auto;
+    position: relative;
 
-        img {
-            width: 75%;
-            @include box-shadow();
-        }
+    h2 {
+      text-align: left;
+      margin: 0;
+    }
 
-        .about__text {
-            position: absolute;
-            top: 25%;
-            left: 27%;
-            transform: translate(-50%, -50%);
-        }
-    }    
+    p {
+      text-align: left;
+    }
+
+    img {
+      width: 75%;
+      @include box-shadow();
+    }
+
+    .about__text {
+      position: absolute;
+      top: 25%;
+      left: 27%;
+      transform: translate(-50%, -50%);
+    }
+  }    
 }
 
 @media screen and (max-width: 768px) {
-    .about {
-        .about__box:nth-of-type(even){
-            .about__text {
-            left: 30%;
-            }
-        }
+  .about {
+    .about__box:nth-of-type(even){
+      .about__text {
+        left: 30%;
+      }
     }
+  }
 }
 
 @media screen and (max-width: 480px) {
-.about {
+  .about {
     .about__box:nth-of-type(odd) {
-        width: 100%;
+      width: 100%;
         
-            img {
-                width: 100%;
-                aspect-ratio: 5/3;
-            }
+      img {
+        width: 100%;
+        aspect-ratio: 5/3;
+      }
 
-            .about__text {
-                position: relative;
-                top: 0;
-                left: 0;
-                transform: translate(0, 0);
-            }
-        }
-
-            .about__box:nth-of-type(even) {
-                width: 100%;
-
-            img {
-                width: 100%;
-                aspect-ratio: 5/3;
-            }
-
-            .about__text {
-                position: relative;
-                top: 0;
-                left: 0;
-                transform: translate(0, 0);
-            }
-        }
+      .about__text {
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: translate(0, 0);
+      }
     }
+
+    .about__box:nth-of-type(even) {
+      width: 100%;
+
+      img {
+        width: 100%;
+        aspect-ratio: 5/3;
+      }
+
+      .about__text {
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: translate(0, 0);
+      }
+    }
+  }
 }

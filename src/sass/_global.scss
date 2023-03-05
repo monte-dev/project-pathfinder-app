@@ -1,13 +1,17 @@
+body {
+  background-color: $color-dark;
+}
+
 .container {
   max-width: 1050px;
   margin: 0 auto;
   padding: 0 15px;
+  position: relative;
 }
 
 #pages {
   background-color: $color-dark;
   min-height: fit-content;
-  margin-top: -300px;
 
   > * {
     display: none;
@@ -16,6 +20,4 @@
   > .active {
     display: block;
   }
-
-  
 }
