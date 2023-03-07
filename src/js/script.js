@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 window.addEventListener('DOMContentLoaded', () => {
   const finderHeading = document.querySelector('.finder__heading');
   const grid = document.querySelector('.grid');
@@ -29,7 +30,6 @@ window.addEventListener('DOMContentLoaded', () => {
       for (const selectedSquare of selectedSquares) {
         const previousRow = parseInt(selectedSquare.dataset.row);
         const previousCol = parseInt(selectedSquare.dataset.col);
-        console.log(selectedSquares);
         
         if (
           (previousRow === currentRow && Math.abs(previousCol - currentCol) === 1) ||
@@ -45,6 +45,7 @@ window.addEventListener('DOMContentLoaded', () => {
         currentSquare.classList.add('grid__square--active');
         selectedSquares.push(currentSquare);
       } else {
+
         console.log('invalid selection');
         return;
       }
@@ -53,4 +54,47 @@ window.addEventListener('DOMContentLoaded', () => {
       return;
     }
   });
+
+  // switch subpages
+
+  const initializePages = () => {
+
+
+    const pages = Array.from(document.querySelector('#pages').children);
+
+    const idFromHash = window.location.hash.replace('#/', '');
+    
+    let pageMatchingHash = pages[0].id;
+
+    for(let page of pages){
+      if(page.id == idFromHash){
+        pageMatchingHash = page.id;
+        break;
+      }
+    }
+
+    activatePage(pageMatchingHash);
+
+    const pageLinks = document.querySelectorAll('header nav a');
+    pageLinks.forEach(pageLink => {
+      pageLink.addEventListener('click', (event) => {
+        const clickedElement = event.target;
+        event.preventDefault();
+        // get page ID from href attr.
+        const id = clickedElement.getAttribute('href').replace('#', '');
+        activatePage(id);
+        // change URL hash, add / to prevent scrolling to #
+        window.location.hash = '#/' + id;
+      });
+    });  
+  };
+  function activatePage(pageId) {
+    const pages = Array.from(document.querySelector('#pages').children);
+    for (const page of pages) {
+      page.classList.toggle('active', page.id === pageId);
+    }
+  }
+
+  initializePages();
+
 });

@@ -11,30 +11,30 @@
 
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(10, 1fr);
-    width: 380px;
-    height: 380px;
-    margin-bottom: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  width: 380px;
+  height: 380px;
+  margin-bottom: 2.5rem;
 
-    &__square {
-        height: 38px;
-        width: 38px;
-        border: 1px solid white;
+  &__square {
+    height: 38px;
+    width: 38px;
+    border: 1px solid white;
 
-        &--active {
-            background-color: $color-primary;
-        }
-
-        &--start {
-            background-color: $color-accent;
-        }
-
-        &--finish {
-            background-color: $color-warning;
-        }
+    &--active {
+      background-color: $color-primary;
     }
+
+    &--start {
+      background-color: $color-accent;
+    }
+
+    &--finish {
+      background-color: $color-warning;
+    }
+  }
 }
 
 #finder__btn {
