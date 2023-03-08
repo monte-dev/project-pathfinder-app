@@ -55,36 +55,3 @@ nav {
     color: $color-light;
   }
 }
-
-.button-down {
-  position: relative;
-  padding: 5px;
-  margin: 30px auto;
-  background: rgba(0, 0, 0, 0.4);
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  transition: all 0.2s linear;
-  cursor: pointer;
-  
-  &:hover {
-    background: rgba(0, 0, 0, 0.7);
-    box-shadow: 1px 23px 34px 0px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 1px 23px 34px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 1px 23px 34px 0px rgba(0,0,0,0.75);
-  }
-}
-
-.button-down::after {
-  content: "";
-  position: absolute;
-  left: 17px;
-  z-index: 11;
-  display: block;
-  width: 25px;
-  height: 25px;
-  border-top: 2px solid #fff;
-  border-left: 2px solid #fff;
-  top: 10px;
-  transform: rotate(225deg);
-}
