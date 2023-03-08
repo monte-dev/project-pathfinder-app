@@ -3,26 +3,30 @@ window.addEventListener('DOMContentLoaded', () => {
   const finderHeading = document.querySelector('.finder__heading');
   const grid = document.querySelector('.grid');
   const finderBtn = document.querySelector('#finder__btn');
+  const minSelectedSquares = 4;
   
   let selectedSquares = []; // initialize selectedSquares to an empty array
   let finder_state = 1; // initialize finder_state to 1
   let squareStart = null;
   let squareFinish = null;
-  let minSelectedSquares = 4;
 
   // create a 10 by 10 grid and assign data attributes to each square
-  for (let row = 1; row <= 10; row++) {
-    for (let col = 1; col <= 10; col++) {
-      const square = document.createElement('div');
-      square.classList.add('grid__square');
-      square.dataset.row = row;
-      square.dataset.col = col;
-      grid.appendChild(square);
-      // square.innerHTML = `${row}, ${col}`;
-      square.dataset.selected = false;
+  function createGrid() {
+    for (let row = 1; row <= 10; row++) {
+      for (let col = 1; col <= 10; col++) {
+        const square = document.createElement('div');
+        square.classList.add('grid__square');
+        square.dataset.row = row;
+        square.dataset.col = col;
+        grid.appendChild(square);
+        // square.innerHTML = `${row}, ${col}`;
+        square.dataset.selected = false;
+      }
     }
   }
-  // console.log(grid.children);
+
+  createGrid();
+  
   grid.addEventListener('click', (event) => {
     // allow selection of squares only in state 1
     if (finder_state === 1) {
@@ -48,7 +52,7 @@ window.addEventListener('DOMContentLoaded', () => {
           }
         }
 
-        // if valid selection, add class and data attribute to current square
+        // if valid selection OR first square selection add class and data attribute to current square
         if (validSelection || selectedSquares.length === 0) {
           console.log('valid selection');
           currentSquare.classList.add('grid__square--active');
@@ -90,43 +94,66 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     // run calculatePath function only in state 3
     else if (finder_state === 3) {
-      calculatePath();
+      //
     }
   });
 
   // switch between states 1, 2 and 3 depending on progress in the app
   finderBtn.addEventListener('click', () => {
     // if app is in state 1 and min-length requirements have been met
-    if (finder_state === 1 && selectedSquares.length > minSelectedSquares) {
+    if (finder_state === 1 && selectedSquares.length >= minSelectedSquares) {
       finder_state = 2;
-      finderHeading.textContent = 'Pick start and finish';
-      finderBtn.textContent = 'Compute';
+      updateStateDom('Pick start and finish', 'Compute');
     }
     // if app is in state 2 and start and finish have been selected
     else if (finder_state === 2 && squareStart && squareFinish) {
       finder_state = 3;
-      finderHeading.textContent = 'The best route is';
-      finderBtn.textContent = 'Start Again';
+      calculatePath();
+      grid.classList.add('grid--disabled');
+      updateStateDom('The best route is', 'Start Again');
     }
     // TODO if app is in state 3 
     else if (finder_state === 3) {
       finder_state = 1;
       selectedSquares = [];
-      squareStart = false;
-      squareFinish = false;
-      finderHeading.textContent = 'Draw Routes';
-      finderBtn.textContent = 'Finish Drawing';
+      squareStart = null;
+      squareFinish = null;
+      updateStateDom('Draw Routes', 'Finish Drawing');
+      resetGrid();
+    }
+    // if app is in state 1 and min-length requirements have not been met
+    else {
+      if (selectedSquares.length <= minSelectedSquares){
+        alert('Please select at least 4 squares');
+      } else {
+        alert('Please select a start and finish square');
+      } 
     }
   });
+
   // TODO
   // calculate path as shortest route between start and finish declared in stage 2
   function calculatePath () {
     console.log('ran calculatePath');
     
   }
+  // change textContent of finderHeading and finderBtn
+  function updateStateDom (headingText, buttonText) {
+    finderHeading.textContent = headingText;
+    finderBtn.textContent = buttonText;
+  }
 
-  // switch subpages
+  // reset grid by removing all classes and data attr. 
+  function resetGrid () {
+    const squares = grid.querySelectorAll('.grid__square');
+    for (const square of squares) {
+      square.classList.remove('grid__square--active', 'grid__square--start', 'grid__square--finish');
+      square.dataset.selected = false;
+    }
+    grid.classList.remove('grid--disabled');
+  }
 
+  // switch subpages and browser URL hash
   const initializePages = () => {
     // switching subpages via navbar and URL hash logic
     const pages = Array.from(document.querySelector('#pages').children);
@@ -163,5 +190,5 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   initializePages();
-
 });
+
