@@ -18,7 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
         square.classList.add('grid__square');
         square.dataset.row = row;
         square.dataset.col = col;
-        grid.appendChild(square);
+        grid.appendChild(square);        
         // square.innerHTML = `${row}, ${col}`;
         square.dataset.selected = false;
       }
@@ -55,9 +55,16 @@ window.addEventListener('DOMContentLoaded', () => {
         // if valid selection OR first square selection add class and data attribute to current square
         if (validSelection || selectedSquares.length === 0) {
           console.log('valid selection');
-          currentSquare.classList.add('grid__square--active');
-          currentSquare.setAttribute('data-selected', 'true');
-          selectedSquares.push(currentSquare);
+          currentSquare.classList.toggle('grid__square--active');
+          // set the attribute depending on whether square is active or not
+          currentSquare.setAttribute('data-selected', currentSquare.classList.contains('grid__square--active'));
+          // if current square is already selected, remove it from selectedSquares array
+          if (selectedSquares.includes(currentSquare)) {
+            const index = selectedSquares.indexOf(currentSquare);
+            selectedSquares.splice(index, 1);
+          } else {
+            selectedSquares.push(currentSquare);
+          }
         }
         // if invalid selection, alert user and return
         else {
@@ -108,11 +115,12 @@ window.addEventListener('DOMContentLoaded', () => {
     // if app is in state 2 and start and finish have been selected
     else if (finder_state === 2 && squareStart && squareFinish) {
       finder_state = 3;
-      calculatePath();
+      // send arguments needed to calculate path
+      calculatePath(squareStart, squareFinish, selectedSquares);
+      // disable pointer events on grid
       grid.classList.add('grid--disabled');
       updateStateDom('The best route is', 'Start Again');
     }
-    // TODO if app is in state 3 
     else if (finder_state === 3) {
       finder_state = 1;
       selectedSquares = [];
@@ -130,13 +138,10 @@ window.addEventListener('DOMContentLoaded', () => {
       } 
     }
   });
-
-  // TODO
-  // calculate path as shortest route between start and finish declared in stage 2
-  function calculatePath () {
-    console.log('ran calculatePath');
-    
+  function calculatePath(start, finish, path) {
+   
   }
+
   // change textContent of finderHeading and finderBtn
   function updateStateDom (headingText, buttonText) {
     finderHeading.textContent = headingText;
