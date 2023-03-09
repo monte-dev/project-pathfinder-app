@@ -46,6 +46,7 @@
     },
     "dependencies": {
         "json-server": "^0.16.3",
+        "noty": "^3.2.0-beta-deprecated",
         "sass": "^1.35.1"
     }
 }

@@ -54,7 +54,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
         // if valid selection OR first square selection add class and data attribute to current square
         if (validSelection || selectedSquares.length === 0) {
-          console.log('valid selection');
           currentSquare.classList.toggle('grid__square--active');
           // set the attribute depending on whether square is active or not
           currentSquare.setAttribute('data-selected', currentSquare.classList.contains('grid__square--active'));
@@ -68,14 +67,15 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         // if invalid selection, alert user and return
         else {
-          alert('invalid selection, please choose a square directly beside one of previously selected squares.');
-          console.log('invalid selection');
+          new Noty({
+            type: 'error',
+            text: 'Invalid selection. Please choose a square directly beside one of the previously selected squares.',
+          }).show();
           return;
         }
       }
       // if clicked element is not a square, alert user and return
       else {
-        console.log('not a square');
         return;
       }
     }
@@ -92,10 +92,16 @@ window.addEventListener('DOMContentLoaded', () => {
             squareFinish = currentSquare;
             squareFinish.classList.add('grid__square--finish');
           } else {
-            alert('Start and finish have been selected');
+            new Noty({
+              type: 'warning',
+              text: 'Start and finish have been selected',
+            }).show();
           }
         } else {
-          alert('Select 2 squares (start and finish) from existing squares.');
+          new Noty({
+            type: 'warning',
+            text: 'Select 2 squares (start and finish) from existing squares.',
+          }).show();
         }
       }
     }
@@ -132,9 +138,16 @@ window.addEventListener('DOMContentLoaded', () => {
     // if app is in state 1 and min-length requirements have not been met
     else {
       if (selectedSquares.length <= minSelectedSquares){
-        alert('Please select at least 4 squares');
+        new Noty({
+          type: 'warning',
+          text: 'Please select at least 4 squares',
+        }).show();
       } else {
-        alert('Please select a start and finish square');
+        new Noty({
+          type: 'warning',
+          text: 'Please select a start and finish square',
+        }).show();
+        
       } 
     }
   });
