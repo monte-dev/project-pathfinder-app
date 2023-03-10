@@ -19,12 +19,22 @@ window.addEventListener('DOMContentLoaded', () => {
         square.dataset.row = row;
         square.dataset.col = col;
         grid.appendChild(square);        
-        // square.innerHTML = `${row}, ${col}`;
         square.dataset.selected = false;
       }
     }
   }
 
+  let gridMap = [];
+
+  function createGridMap() {
+    for(let row = 1; row <= 10; row++) {
+      gridMap[row] = [];
+      for(let col = 1; col <= 10; col++) {
+        gridMap[row][col] = false;
+      }
+    }
+  }
+  createGridMap();
   createGrid();
   
   grid.addEventListener('click', (event) => {
@@ -57,6 +67,9 @@ window.addEventListener('DOMContentLoaded', () => {
           currentSquare.classList.toggle('grid__square--active');
           // set the attribute depending on whether square is active or not
           currentSquare.setAttribute('data-selected', currentSquare.classList.contains('grid__square--active'));
+
+          gridMap[currentRow][currentCol] = true;
+
           // if current square is already selected, remove it from selectedSquares array
           if (selectedSquares.includes(currentSquare)) {
             const index = selectedSquares.indexOf(currentSquare);
@@ -88,9 +101,13 @@ window.addEventListener('DOMContentLoaded', () => {
           if (!squareStart) {
             squareStart = currentSquare;
             squareStart.classList.add('grid__square--start');
+            gridMap[squareStart.dataset.row][squareStart.dataset.col] = 'start';
+    
           } else if (!squareFinish) {
             squareFinish = currentSquare;
             squareFinish.classList.add('grid__square--finish');
+            gridMap[squareFinish.dataset.row][squareFinish.dataset.col] = 'finish';
+            console.log(gridMap);
           } else {
             new Noty({
               type: 'warning',
@@ -122,7 +139,8 @@ window.addEventListener('DOMContentLoaded', () => {
     else if (finder_state === 2 && squareStart && squareFinish) {
       finder_state = 3;
       // send arguments needed to calculate path
-      calculatePath(squareStart, squareFinish, selectedSquares);
+      
+      findPath(squareStart, squareFinish, gridMap);
       // disable pointer events on grid
       grid.classList.add('grid--disabled');
       updateStateDom('The best route is', 'Start Again');
@@ -151,9 +169,32 @@ window.addEventListener('DOMContentLoaded', () => {
       } 
     }
   });
-  function calculatePath(start, finish, path) {
-   
-  }
+
+  function findPath(start, finish, gridMap) {
+    // get the row and column of the start and finish squares as a number
+    const startRow = parseInt(start.dataset.row);
+    const startCol = parseInt(start.dataset.col);
+    const finishRow = parseInt(finish.dataset.row);
+    const finishCol = parseInt(finish.dataset.col);
+
+    console.log('start', startRow, startCol, 'finish', finishRow, finishCol);
+    console.log(gridMap);
+
+    let visited = [];
+
+
+    for (let row = 1; row <= 10; row++) {
+      for (let col = 1; col <= 10; col++) {
+        if (!gridMap[row][col]) {
+          visited.push([row, col]);
+        }
+      }
+    }
+
+    console.log(visited);
+
+  }  
+
 
   // change textContent of finderHeading and finderBtn
   function updateStateDom (headingText, buttonText) {
