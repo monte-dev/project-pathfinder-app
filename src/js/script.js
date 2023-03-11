@@ -170,30 +170,73 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // find shortest path using BFS breadth first search algorithm
   function findPath(start, finish, gridMap) {
-    // get the row and column of the start and finish squares as a number
-    const startRow = parseInt(start.dataset.row);
-    const startCol = parseInt(start.dataset.col);
-    const finishRow = parseInt(finish.dataset.row);
-    const finishCol = parseInt(finish.dataset.col);
+    const squaresToVisit = [start];
+    
+    // store visited squares to avoid visiting them again.
+    const visitedSquares = new Set();
+    // store the parent of each square to reconstruct the path
+    const parentSquares = new Map();
+    // loop through all squares until there are no more to visit
+    while (squaresToVisit.length > 0) {
+      // each loop takes the next square from the queue of squares to visit
+      const currentSquare = squaresToVisit.shift();
+      visitedSquares.add(currentSquare);
+    
+      // if the current square is the finish node, path found
+      if (currentSquare === finish) {
+        break;
+      }
+    
+      // look at all neighbours of the current square 
+      const neighbourSquares = getNeighbourSquares(currentSquare, gridMap);
 
-    console.log('start', startRow, startCol, 'finish', finishRow, finishCol);
-    console.log(gridMap);
-
-    let visited = [];
-
-
-    for (let row = 1; row <= 10; row++) {
-      for (let col = 1; col <= 10; col++) {
-        if (!gridMap[row][col]) {
-          visited.push([row, col]);
+      // if the neighbour is not visited, add it to the queue of squares to visit
+      for (const neighbour of neighbourSquares) {
+        if (!visitedSquares.has(neighbour)) {
+          squaresToVisit.push(neighbour);
+          visitedSquares.add(neighbour);
+          parentSquares.set(neighbour, currentSquare);
         }
       }
+      
     }
+  }
+  
+  function getNeighbourSquares(square, gridMap) {
+    const row = parseInt(square.dataset.row);
+    const col = parseInt(square.dataset.col);
+    // store squares thar are neighbours (N S W E) to the current square
+    const neighbourSquares = [];
 
-    console.log(visited);
+    // check if current square has a neighbour in each direction
+    // get neighbour squares representation in the DOM and push to array
 
-  }  
+    // north [row-1]
+    if (row > 1 && gridMap[row-1][col]) {
+      neighbourSquares.push(getSquare(row-1, col));
+    }
+    // east [col+1]
+    if (col < 10 && gridMap[row][col+1]) {
+      neighbourSquares.push(getSquare(row, col+1));
+    }
+    // south [row+1]
+    if (row < 10 && gridMap[row+1][col]) {
+      neighbourSquares.push(getSquare(row+1, col));
+    }
+    // west [col-1]
+    if (col > 1 && gridMap[row][col-1]) {
+      neighbourSquares.push(getSquare(row, col-1));
+    }
+    // return array of neighbour squares
+    return neighbourSquares;
+  }
+
+  // in the DOM select the square given row and col 
+  function getSquare(row, col) {
+    return document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+  }
 
 
   // change textContent of finderHeading and finderBtn
