@@ -202,6 +202,34 @@ window.addEventListener('DOMContentLoaded', () => {
       }
       
     }
+
+    // reconstruct the path from the finish square back to the start square
+    const path = [];
+    let currentSquare = finish;
+
+    // 
+    while (currentSquare !== start) {
+      // add to beginning of array
+      path.unshift(currentSquare);
+      currentSquare = parentSquares.get(currentSquare);
+    }
+    path.unshift(start);
+  
+    // highlight the squares in the path
+    for (let square of path) {
+      if (square !== start && square !== finish) {
+        square.classList.add('grid__square--path');
+      }
+    }
+
+    // if after going through all squares finish is not found, no path exists
+    if (!parentSquares.has(finish)) {
+      new Noty({
+        type: 'error',
+        text: 'No path found.',
+      }).show();
+      return;
+    }
   }
   
   function getNeighbourSquares(square, gridMap) {
