@@ -235,6 +235,7 @@ window.addEventListener('DOMContentLoaded', () => {
   function getNeighbourSquares(square, gridMap) {
     const row = parseInt(square.dataset.row);
     const col = parseInt(square.dataset.col);
+    const isSelected = square.getAttribute('data-selected');
     // store squares thar are neighbours (N S W E) to the current square
     const neighbourSquares = [];
 
@@ -242,21 +243,37 @@ window.addEventListener('DOMContentLoaded', () => {
     // get neighbour squares representation in the DOM and push to array
 
     // north [row-1]
-    if (row > 1 && gridMap[row-1][col]) {
+    if (row > 1 && gridMap[row-1][col] && isSelected === 'true') {
       neighbourSquares.push(getSquare(row-1, col));
     }
     // east [col+1]
-    if (col < 10 && gridMap[row][col+1]) {
+    if (col < 10 && gridMap[row][col+1] && isSelected === 'true') {
       neighbourSquares.push(getSquare(row, col+1));
     }
     // south [row+1]
-    if (row < 10 && gridMap[row+1][col]) {
+    if (row < 10 && gridMap[row+1][col] && isSelected === 'true') {
       neighbourSquares.push(getSquare(row+1, col));
     }
     // west [col-1]
-    if (col > 1 && gridMap[row][col-1]) {
+    if (col > 1 && gridMap[row][col-1] && isSelected === 'true') {
       neighbourSquares.push(getSquare(row, col-1));
     }
+    // edge cases
+    if (col === 1 && gridMap[row][col+1] && isSelected === 'true') {
+      neighbourSquares.push(getSquare(row, col+1));
+    }
+    if (col === 10 && gridMap[row][col-1] && isSelected === 'true') {
+      neighbourSquares.push(getSquare(row, col-1));
+    }
+    if (row === 10 && gridMap[row-1][col] && isSelected === 'true') {
+      neighbourSquares.push(getSquare(row-1, col));
+      console.log('row 10', neighbourSquares);
+      
+    }
+    if (row === 1 && gridMap[row+1][col] && isSelected === 'true') {
+      neighbourSquares.push(getSquare(row+1, col));
+    }
+
     // return array of neighbour squares
     return neighbourSquares;
   }
@@ -277,7 +294,7 @@ window.addEventListener('DOMContentLoaded', () => {
   function resetGrid () {
     const squares = grid.querySelectorAll('.grid__square');
     for (const square of squares) {
-      square.classList.remove('grid__square--active', 'grid__square--start', 'grid__square--finish');
+      square.classList.remove('grid__square--active', 'grid__square--start', 'grid__square--finish', 'grid__square--path');
       square.dataset.selected = false;
     }
     grid.classList.remove('grid--disabled');
