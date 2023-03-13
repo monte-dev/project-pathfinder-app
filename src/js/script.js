@@ -18,14 +18,14 @@ window.addEventListener('DOMContentLoaded', () => {
         square.classList.add('grid__square');
         square.dataset.row = row;
         square.dataset.col = col;
-        grid.appendChild(square);        
+        grid.appendChild(square);
         square.dataset.selected = false;
       }
     }
   }
 
   let gridMap = [];
-
+  // 2d array
   function createGridMap() {
     for(let row = 1; row <= 10; row++) {
       gridMap[row] = [];
@@ -136,10 +136,9 @@ window.addEventListener('DOMContentLoaded', () => {
       updateStateDom('Pick start and finish', 'Compute');
     }
     // if app is in state 2 and start and finish have been selected
-    else if (finder_state === 2 && squareStart && squareFinish) {
+    else if (finder_state === 2  && squareStart && squareFinish) {
       finder_state = 3;
       // send arguments needed to calculate path
-      
       findPath(squareStart, squareFinish, gridMap);
       // disable pointer events on grid
       grid.classList.add('grid--disabled');
