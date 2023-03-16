@@ -45,38 +45,43 @@ window.addEventListener('DOMContentLoaded', () => {
         // get the row and column of the current square as a number
         const currentRow = parseInt(currentSquare.dataset.row);
         const currentCol = parseInt(currentSquare.dataset.col);
-
         // check if current square is ^, > , \/, < to any previously selected square
         let validSelection = false;
         for (const selectedSquare of selectedSquares) {
           // get the row and column of the selected square as a number
           const previousRow = parseInt(selectedSquare.dataset.row);
           const previousCol = parseInt(selectedSquare.dataset.col);
+    
           // use math absolute to check position of new selection to previous selection
           if (
             (previousRow === currentRow && Math.abs(previousCol - currentCol) === 1) ||
-          (previousCol === currentCol && Math.abs(previousRow - currentRow) === 1)
+            (previousCol === currentCol && Math.abs(previousRow - currentRow) === 1)
           ) {
-            validSelection = true;
-            break;
+            if (selectedSquare) {
+              validSelection = true;
+            } else {
+              validSelection = false;
+              break;
+            }
           }
         }
-
         // if valid selection OR first square selection add class and data attribute to current square
-        if (validSelection || selectedSquares.length === 0) {
-          currentSquare.classList.toggle('grid__square--active');
-          // set the attribute depending on whether square is active or not
-          currentSquare.setAttribute('data-selected', currentSquare.classList.contains('grid__square--active'));
-
-          gridMap[currentRow][currentCol] = true;
-
-          // if current square is already selected, remove it from selectedSquares array
+        if (validSelection || selectedSquares.length === 0 ) {
+          // allow user to only remove most recent square from array
           if (selectedSquares.includes(currentSquare)) {
-            const index = selectedSquares.indexOf(currentSquare);
-            selectedSquares.splice(index, 1);
-          } else {
+            let previousSquare = selectedSquares.pop();
+            previousSquare.classList.remove('grid__square--active');
+            gridMap[currentRow][currentCol] = false;
+
+          } 
+          // else add current square to array and add class active
+          else {
             selectedSquares.push(currentSquare);
+            currentSquare.classList.add('grid__square--active');
           }
+          // set the attribute depending on whether square is active or not
+          currentSquare.setAttribute('data-selected', currentSquare.classList.contains  ('grid__square--active'));
+          gridMap[currentRow][currentCol] = true;
         }
         // if invalid selection, alert user and return
         else {
@@ -221,6 +226,8 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    console.log(path.length, 'path squares');
+    
     // if after going through all squares finish is not found, no path exists
     if (!parentSquares.has(finish)) {
       new Noty({
