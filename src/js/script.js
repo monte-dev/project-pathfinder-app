@@ -4,6 +4,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.grid');
   const finderBtn = document.querySelector('#finder__btn');
   const minSelectedSquares = 4;
+  const gridSquare = document.querySelectorAll('.grid__square');
   
   let selectedSquares = []; // initialize selectedSquares to an empty array
   let finder_state = 1; // initialize finder_state to 1
@@ -37,7 +38,7 @@ window.addEventListener('DOMContentLoaded', () => {
   createGridMap();
   createGrid();
   
-  grid.addEventListener('click', (event) => {
+  grid.addEventListener('click', (event, neighbourSquares) => {
     // allow selection of squares only in state 1
     if (finder_state === 1) {
       if (event.target.classList.contains('grid__square')) {
@@ -65,6 +66,7 @@ window.addEventListener('DOMContentLoaded', () => {
             }
           }
         }
+        
         // if valid selection OR first square selection add class and data attribute to current square
         if (validSelection || selectedSquares.length === 0 ) {
           // allow user to only remove most recent square from array
@@ -112,7 +114,6 @@ window.addEventListener('DOMContentLoaded', () => {
             squareFinish = currentSquare;
             squareFinish.classList.add('grid__square--finish');
             gridMap[squareFinish.dataset.row][squareFinish.dataset.col] = 'finish';
-            console.log(gridMap);
           } else {
             new Noty({
               type: 'warning',
@@ -226,7 +227,7 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    console.log(path.length, 'path squares');
+    showResult(path);
     
     // if after going through all squares finish is not found, no path exists
     if (!parentSquares.has(finish)) {
@@ -238,6 +239,17 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }
   
+  function showResult(path){
+    console.log(path.length);
+    console.log(selectedSquares.length);
+    const resultModal = document.getElementById('result__modal');
+    const routeTotal = document.getElementById('route-total');
+    const routeShortest = document.getElementById('route-shortest');
+    resultModal.style.display = 'flex';
+    routeTotal.innerHTML = selectedSquares.length + ' Fields';
+    routeShortest.innerHTML = path.length + ' Fields';    
+  }
+
   function getNeighbourSquares(square, gridMap) {
     const row = parseInt(square.dataset.row);
     const col = parseInt(square.dataset.col);
@@ -281,14 +293,15 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     // return array of neighbour squares
+
     return neighbourSquares;
+
   }
 
   // in the DOM select the square given row and col 
   function getSquare(row, col) {
     return document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
   }
-
 
   // change textContent of finderHeading and finderBtn
   function updateStateDom (headingText, buttonText) {
@@ -344,4 +357,3 @@ window.addEventListener('DOMContentLoaded', () => {
 
   initializePages();
 });
-

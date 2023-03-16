@@ -67,3 +67,60 @@
     color: $color-light;
   }
 }
+
+#result__modal {
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 100%;
+  height: 100vh;
+  @include center;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  
+  &--content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: $color-light;
+    width: fit-content;
+    height: 180px;
+    padding: 10px 10px 75px 10px;
+    
+    button {
+      all: unset;
+      font-family: $font-family;
+      margin-right: 6px;
+      font-size: 24px;
+      align-self: flex-end;
+      transition: all 0.3s ease-in-out;
+      padding: 6px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $color-primary;
+        border-radius: 5px;
+      }
+    }
+
+    h3 {
+      color: $color-dark;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-right: 0;
+      letter-spacing: 3px;
+    }
+
+    p {
+      color: $color-dark;
+      font-weight: 800;
+      margin: 10px 100px;
+
+      span {
+        font-weight: 500;
+      }
+    }
+  }
+
+
+}
