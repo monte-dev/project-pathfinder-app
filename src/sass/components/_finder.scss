@@ -1,14 +1,7 @@
 .finder__wrapper {
-  // @include center();
-  // top: 70%;
-  // transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  @include flex(column, center, center);
   text-align: center;
 }
-
 
 .grid {
   display: grid;
@@ -69,31 +62,30 @@
 }
 
 #result__modal {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(0, 0, 0, 0.7);
   width: 100%;
-  height: 100vh;
-  @include center;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  @include flex(row, center, center);
   display: none;
-  align-items: center;
-  justify-content: center;
   
   &--content {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+    @include flex (column, center, unset);
     background-color: $color-light;
     width: fit-content;
     height: 180px;
-    padding: 10px 10px 75px 10px;
+    padding: 25px 10px 75px 10px;
     
     button {
       all: unset;
       font-family: $font-family;
-      margin-right: 6px;
+      margin-top: 4px;
       font-size: 24px;
       align-self: flex-end;
       transition: all 0.3s ease-in-out;
-      padding: 6px;
+      padding: 4px 6px;
       cursor: pointer;
 
       &:hover {
@@ -114,13 +106,11 @@
     p {
       color: $color-dark;
       font-weight: 800;
-      margin: 10px 100px;
+      padding: 4px 80px;
 
       span {
         font-weight: 500;
       }
     }
   }
-
-
 }

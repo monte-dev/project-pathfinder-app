@@ -3,9 +3,10 @@ window.addEventListener('DOMContentLoaded', () => {
   const finderHeading = document.querySelector('.finder__heading');
   const grid = document.querySelector('.grid');
   const finderBtn = document.querySelector('#finder__btn');
+  const modalBtn = document.querySelector('#result__modal--button');
+  const resultModal = document.getElementById('result__modal');
   const minSelectedSquares = 4;
-  const gridSquare = document.querySelectorAll('.grid__square');
-  
+
   let selectedSquares = []; // initialize selectedSquares to an empty array
   let finder_state = 1; // initialize finder_state to 1
   let squareStart = null;
@@ -240,15 +241,17 @@ window.addEventListener('DOMContentLoaded', () => {
   }
   
   function showResult(path){
-    console.log(path.length);
-    console.log(selectedSquares.length);
-    const resultModal = document.getElementById('result__modal');
     const routeTotal = document.getElementById('route-total');
     const routeShortest = document.getElementById('route-shortest');
+
     resultModal.style.display = 'flex';
     routeTotal.innerHTML = selectedSquares.length + ' Fields';
-    routeShortest.innerHTML = path.length + ' Fields';    
+    routeShortest.innerHTML = path.length + ' Fields';
   }
+
+  modalBtn.addEventListener('click', () => {
+    resultModal.style.display = 'none';
+  });
 
   function getNeighbourSquares(square, gridMap) {
     const row = parseInt(square.dataset.row);
